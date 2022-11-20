@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div className='index'>
-      <DefaultLayout>
+      <DefaultLayout variant="nofooter">
         <div className="grid grid-cols-3 gap-4">
           <Card title="Integrado com o mundo digital" text="Desde quando você conhece um banco que dá crédito rápido e fácil?">
             <Image className="rounded-t-lg card-image" src={img_1} />

@@ -4,7 +4,6 @@ export type SignInCredentials = {
 };
 
 export interface RegisterCredentials {
-  id: string;
   nome: string;
   cpf: string;
   data_nascimento: string;
@@ -18,14 +17,10 @@ export interface RegisterCredentials {
   saldo: number;
   agencia: string;
   conta: string;
-  avaliacoes: any;
-  poupancas: any;
-  pix: any;
-  contatos: any;
-  transferencia: any;
 }
 
 export interface User extends RegisterCredentials   {
+  id: number,
   cpf: string;
   senha: string;
 };

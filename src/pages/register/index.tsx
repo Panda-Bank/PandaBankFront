@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useState } from "react";
 import { DefaultLayout } from "../../layouts";
-import { nanoid } from "nanoid";
 import { AuthContext } from "../../libs/contexts/AuthContext";
+import { maskCPF, maskPhoneWithDDD } from "../../libs/tools/regex";
 
 export default function RegisterPage() {
   const { registerAccount } = useContext(AuthContext);
@@ -21,7 +21,6 @@ export default function RegisterPage() {
     e.preventDefault();
 
     const data = {
-      id: nanoid(12),
       nome: nome,
       cpf: cpf,
       data_nascimento: date,
@@ -35,15 +34,7 @@ export default function RegisterPage() {
       saldo: 0,
       agencia: "1423",
       conta: "123134",
-      avaliacoes: [],
-      poupancas: [],
-      pix: [],
-      contatos: [],
-      transferencia: [],
     };
-
-    // JSON.stringify(data)
-
     await registerAccount(data);
   };
 
@@ -108,7 +99,7 @@ export default function RegisterPage() {
                 name="cpf"
                 id="cpf"
                 value={cpf}
-                onChange={(e) => setCPF(e.target.value)}
+                onChange={(e) => setCPF(maskCPF(e.target.value))}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="03842222122"
                 required
@@ -140,7 +131,7 @@ export default function RegisterPage() {
                 Sua data de nascimento
               </label>
               <input
-                type="text"
+                type="date"
                 name="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
@@ -158,7 +149,7 @@ export default function RegisterPage() {
               </label>
               <input
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(maskPhoneWithDDD(e.target.value))}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="(99) 9999-9999"
                 required

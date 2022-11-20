@@ -42,6 +42,8 @@ export function AuthProvider({ children }: props) {
         ...account,
       });
 
+      router.push("/login");
+
       console.log(user);
     } catch (err) {
       console.log(err);

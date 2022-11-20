@@ -18,8 +18,8 @@
 
     &:hover,
     &:focus {
-        background: white;
-        color: black;
+        background: black;
+        color: white;
     }
 
     &:active {
@@ -27,20 +27,18 @@
     }
 
     &--outline {
-        background-color: black;
-        border: 1px solid var(--grey-300);
+        background-color: transparent;
+        border: 1px solid black;
+
+        color: black;
 
         transition: outline 120ms ease-in-out, transform 150ms ease;
-
-        :focus,
-        :hover {
-            outline: none;
-            border: 2px solid #0283ed;
-        }
+        transition: background 250ms ease-in-out, transform 150ms ease;
     }
 
     &--secondary {
-        background-color: black;
+
+        background-color: var(--secondary);
         color: white;
         font-size: 1.125rem;
         padding: 1rem;

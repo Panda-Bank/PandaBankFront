@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { DashBoardLayout } from "../../layouts/DashBoardLayout";
-import { AuthContext } from "../../libs/contexts/AuthContext";
+import { AuthContext, AuthProvider } from "../../libs/contexts/AuthContext";
 import { api } from "../../services/api";
 
 export default function DashBoard() {
@@ -11,9 +11,15 @@ export default function DashBoard() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    await api.post(`/pix/${user?.cpf}/${cpf}`, {
-      pix: `${amount}`,
+    await api.post(`/pix/transferir`, {
+      chave: `${cpf}`,
+      valor: amount,
+      usuario: {
+        ...user
+      }
     });
+
+    console.log({...user})
   };
 
   return (
@@ -33,7 +39,7 @@ export default function DashBoard() {
                     htmlFor="cpf"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Seu CPF
+                    CPF do outro usuário
                   </label>
                   <input
                     type="cpf"
@@ -78,7 +84,7 @@ export default function DashBoard() {
             {new Intl.NumberFormat("pt-BR", {
               style: "currency",
               currency: "BRL",
-            }).format(user?.saldo as number || 0)}
+            }).format((user?.saldo as number) || 0)}
           </div>
         </div>
       </DashBoardLayout>

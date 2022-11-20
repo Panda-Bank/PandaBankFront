@@ -20,13 +20,12 @@
 
 
 :root {
+  --primary: #000;
+  --secondary: #0069ed;
 
-  --white: #fff;
-  --black: #000;
-
-  --grey-300: #d4d4d8;
-
-  --blue-300: #0069ed;
+  --accent-100: #fff;
+  --accent-300: #e5e5e5;
+  --accent-400: #d4d4d8;
 }
 
 * {
@@ -79,6 +78,6 @@ ul {
 }
 
 .page_wrapper {
-  width: 1440px;
-  height: 100vh;
+  width: 1920px;
+  height: 1080px
 }

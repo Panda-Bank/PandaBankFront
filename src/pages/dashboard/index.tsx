@@ -2,9 +2,6 @@ import { FormEvent, useContext, useState } from "react";
 import { DashBoardLayout } from "../../layouts/DashBoardLayout";
 import { AuthContext } from "../../libs/contexts/AuthContext";
 import { api } from "../../services/api";
-import { Transfer } from "../../model/transfer/Transfer";
-import { User } from "../../model/User";
-import { ApiError } from "next/dist/server/api-utils";
 
 export default function DashBoard() {
   const { user } = useContext(AuthContext);

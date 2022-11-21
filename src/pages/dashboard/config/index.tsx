@@ -15,10 +15,6 @@ export default function Config() {
     },
   };
 
-  //pix.usuarios.id = user?.id as number;
-  //pix.chave = `${user?.cpf}`;
-  //pix.tipo = "cpf";
-
   function handleGenerate() {
     api.post("pix/cadastrar", pixteste);
     console.log(pixteste);

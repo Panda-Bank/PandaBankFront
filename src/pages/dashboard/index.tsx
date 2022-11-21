@@ -1,7 +1,10 @@
 import { FormEvent, useContext, useState } from "react";
 import { DashBoardLayout } from "../../layouts/DashBoardLayout";
-import { AuthContext, AuthProvider } from "../../libs/contexts/AuthContext";
+import { AuthContext } from "../../libs/contexts/AuthContext";
 import { api } from "../../services/api";
+import { Transfer } from "../../model/transfer/Transfer";
+import { User } from "../../model/User";
+import { ApiError } from "next/dist/server/api-utils";
 
 export default function DashBoard() {
   const { user } = useContext(AuthContext);
@@ -11,15 +14,20 @@ export default function DashBoard() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    await api.post(`/pix/transferir`, {
-      chave: `${cpf}`,
-      valor: amount,
+    const transfer = {
+      chave: cpf,
+      valor: parseFloat(amount),
       usuario: {
-        ...user
-      }
-    });
+        id: user?.id,
+      },
+    };
 
-    console.log({...user})
+    await api
+      .post(`/pix/transferir`, transfer)
+      .then((res) => alert("pix enviado"))
+      .catch((err) => console.log(err));
+
+    console.log(transfer);
   };
 
   return (

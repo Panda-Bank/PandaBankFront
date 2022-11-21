@@ -22,7 +22,6 @@ export function AuthProvider({ children }: props) {
   async function signIn({ cpf, senha }: SignInCredentials) {
     try {
       const { data } = await api.get(`/usuarios/cpf/${cpf}`);
-      console.log(data);
 
       if (data && data.senha === senha) {
         setUser({

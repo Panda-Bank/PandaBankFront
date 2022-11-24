@@ -1,4 +1,4 @@
-* proteger rota
+* proteger rota: feito
 * criar opção de chave:
  	- email,
 	- aleatoria,
@@ -11,3 +11,4 @@
 * deletar conta
 * logout 
 * visualizar transferências
+* melhor autenticação signin 

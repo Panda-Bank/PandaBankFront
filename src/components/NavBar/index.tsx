@@ -8,7 +8,7 @@ export function NavBar() {
     return <header className={styles['header']}>
         <span className={styles['header-inner']}>
             <div className={styles['logo-container']}>
-                <Image  src={logo}/>
+                <Image  src={logo} alt="a"/>
             </div>
             <div onClick={() => handleChangePage('/')}>
                 <h1 className={styles['middle-inner']}>PANDA</h1>

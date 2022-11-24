@@ -1,10 +1,14 @@
-import { FormEvent, useContext, useState } from "react";
+import { useRouter } from "next/router";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { DefaultLayout } from "../../layouts";
 import { AuthContext } from "../../libs/contexts/AuthContext";
 import { maskCPF, maskPhoneWithDDD } from "../../libs/tools/regex";
 
 export default function RegisterPage() {
   const { registerAccount } = useContext(AuthContext);
+
+  const { isAuthenticated } = useContext(AuthContext);
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +20,12 @@ export default function RegisterPage() {
   const [cep, setCEP] = useState("");
   const [numero, setNumero] = useState("");
   const [complemento, setComplemento] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -229,7 +239,7 @@ export default function RegisterPage() {
             </div>
             <button
               type="submit"
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="w-full text-white bg-blue-700 hover:bg-neutral-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  dark:focus:ring-blue-800"
             >
               Registrar
             </button>

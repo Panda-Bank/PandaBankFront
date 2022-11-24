@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-export type buttonVariant = "outline";
-export type buttonColors = "primary" | "secondary";
+export type buttonVariant = "outline" | "loading" | "danger";
+export type buttonColors = "primary" | "secondary" | "tertiary";
 
 export interface ButtonProps {
   children: ReactNode;

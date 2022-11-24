@@ -22,10 +22,20 @@
 :root {
   --primary: #000;
   --secondary: #0069ed;
+  --danger: #f40000;
 
   --accent-100: #fff;
   --accent-300: #e5e5e5;
   --accent-400: #d4d4d8;
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
 }
 
 * {

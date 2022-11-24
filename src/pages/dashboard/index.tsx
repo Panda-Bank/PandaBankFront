@@ -1,50 +1,47 @@
-import { FormEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
+import { EButton } from "../../components/Button";
+import { ExpiredSessionComponent } from "../../components/ExpiredSessionComponent";
 import { DashBoardLayout } from "../../layouts/DashBoardLayout";
 import { AuthContext } from "../../libs/contexts/AuthContext";
-import { api } from "../../services/api";
 
 export default function DashBoard() {
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated, handleTransaction } = useContext(AuthContext);
   const [cpf, setCPF] = useState("");
   const [amount, setAmount] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const transfer = {
-      chave: cpf,
-      valor: parseFloat(amount),
-      usuario: {
-        id: user?.id,
-      },
-    };
-
-    await api
-      .post(`/pix/transferir`, transfer)
-      .then((res) => alert("pix enviado"))
-      .catch((err) => console.log(err));
-
-    console.log(transfer);
-  };
-
-  return (
+  return isAuthenticated ? (
     <div className="index">
       <DashBoardLayout nome={`${user?.nome}`}>
         <div className="flex justify-between gap-16">
           <div className="flex justify-between items-center gap-16 div pl-40 pr-8 py-8 bg-zinc-900 rounded-md bg-gradient-to-r from-zinc-900 to-zinc-600">
-            <h1 className="text-2xl text-white">Transferir PIX</h1>
+            <h1 className="text-2xl text-white">
+              Saldo:{" "}
+              {new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(user?.saldo || 0)}
+            </h1>
             <div className=" flex items-center w-max p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
               <form
-                onSubmit={(e) => handleSubmit(e)}
+                onSubmit={(e) =>
+                  handleTransaction(e, {
+                    cpf: cpf,
+                    amount: amount,
+                    usuario: {
+                      id: user?.id,
+                    },
+                  })
+                }
                 className="space-y-4"
                 action="#"
               >
                 <div>
+                  <p className="pb-4">Transferência Pix</p>
                   <label
                     htmlFor="cpf"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    CPF do outro usuário
+                    Chave do outro usuário
                   </label>
                   <input
                     type="cpf"
@@ -84,15 +81,52 @@ export default function DashBoard() {
               </form>
             </div>
           </div>
-          <div className="flex justify-between items-center gap-8 div text-2xl text-white px-40 bg-green-400 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 ">
-            <h1>Saldo</h1>
-            {new Intl.NumberFormat("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            }).format((user?.saldo as number) || 0)}
+          <div className="flex items-center gap-2 div text-2xl text-white px-4">
+            <div className="text-zinc-900">
+              <p>Histórico</p>
+              <div
+                style={{
+                  overflow: "auto",
+                }}
+                className="h-80 w-full bg-green-400 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 py-4 px-8"
+              >
+                {user?.transferencia ? (
+                  user?.transferencia.map((trans: any) => (
+                    <div
+                      key={trans.id}
+                      className="flex justify-between gap-4 bg-zinc-100 rounded py-4 place-items-center mt-4 px-8 mx-8"
+                    >
+                      <div>
+                        <p className="py-4 text-zinc-900 text-sm">
+                          valor:{" "}
+                          {new Intl.NumberFormat("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                          }).format(trans.valor || 0)}
+                        </p>
+                        <p className="pb-4 text-zinc-900 text-sm">
+                          id: {trans.id}
+                        </p>
+                        <div>
+                          <p className="text-zinc-900 text-sm">
+                            CHAVE: {trans.chave}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </DashBoardLayout>
+    </div>
+  ) : (
+    <div className="default-main">
+      <ExpiredSessionComponent />
     </div>
   );
 }

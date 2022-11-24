@@ -13,13 +13,13 @@ export default function Home() {
       <DefaultLayout variant="nofooter">
         <div className="grid grid-cols-3 gap-4">
           <Card title="Integrado com o mundo digital" text="Desde quando você conhece um banco que dá crédito rápido e fácil?">
-            <Image className="rounded-t-lg card-image" src={img_1} />
+            <Image className="rounded-t-lg card-image" src={img_1} alt="a"/>
           </Card>
           <Card title="Preparado para 2023" text="Medo de perder dinheiro na virada, inflação e amigos? Aqui não!">
-            <Image className="rounded-t-lg card-image" src={img_2} />
+            <Image className="rounded-t-lg card-image" src={img_2}  alt="a"/>
           </Card>
           <Card title="E os presentes de natal?" text="Cashback de 5% em todas as compras durante o natal!">
-            <Image className="rounded-t-lg card-image" src={img_3} />
+            <Image className="rounded-t-lg card-image" src={img_3} alt="a"/>
           </Card>
         </div>
       </DefaultLayout>

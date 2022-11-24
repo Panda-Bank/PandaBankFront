@@ -1,6 +1,7 @@
 .button {
     display: inline-block;
     border: none;
+    height: 48px;
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 0;
@@ -12,9 +13,14 @@
     line-height: 1;
     cursor: pointer;
     text-align: center;
+    transition: outline 120ms ease-in-out, transform 150ms ease;
     transition: background 250ms ease-in-out, transform 150ms ease;
     -webkit-appearance: none;
     -moz-appearance: none;
+
+    > svg {
+        fill: var(--accent-300);
+    }
 
     &:hover,
     &:focus {
@@ -31,30 +37,41 @@
         border: 1px solid black;
 
         color: black;
-
-        transition: outline 120ms ease-in-out, transform 150ms ease;
-        transition: background 250ms ease-in-out, transform 150ms ease;
     }
 
     &--secondary {
-
         background-color: var(--secondary);
         color: white;
-        font-size: 1.125rem;
-        padding: 1rem;
-        border-radius: 0.5rem;
-
-        &:hover {
-            outline: 2px solid #0283ed;
-            background: black;
-            color: white;
-        }
 
         &:hover,
         &:focus {
-            background: black;
-            outline: 2px solid #0283ed;
+            background-color: black;
             color: white;
+        }
+    }
+
+    &--tertiary {
+        background-color: var(--accent-100);
+        color: var(--primary);
+
+        > svg {
+            fill: var(--accent-100);
+        }
+        &:hover,
+        &:focus {
+            background-color: #0069ed;
+        }
+    }
+
+    &--danger {
+        background-color: var(--danger);
+        color: white;
+
+        &:hover,
+        &:focus {
+            background: white;
+            outline: solid 1px black;
+            color: black;
         }
     }
 }

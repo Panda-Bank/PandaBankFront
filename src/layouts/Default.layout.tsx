@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Footer, NavBar } from '../components'
+import { NavBar } from '../components'
 
 type props = { children: ReactNode, variant?: string }
 
@@ -10,7 +10,6 @@ export function DefaultLayout({ children, variant }: props) {
             <main className='default-main'>
                 {children}
             </main>
-            <Footer />
         </main>
     ) : (
         <main className='page_wrapper bg-white'>
